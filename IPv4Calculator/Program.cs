@@ -3,9 +3,9 @@
 namespace IPv4Calculator;
 // Note: actual namespace depends on the project name.
 
-internal class Program : CalculateMethods
+public class Program : CalculateMethods
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
         Console.WriteLine("Bitte geben Sie ihre IP-Adresse ein :");
         var ipAdress = Console.ReadLine();
