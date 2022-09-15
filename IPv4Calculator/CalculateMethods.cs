@@ -2,10 +2,16 @@
 
 public class CalculateMethods
 {
-    public static void CalculateMaximumHost(string? subnetzmaske)
+    public static int CalculateMaximumHost(string? subnetzmaske)
     {
-        //Calculate maximum host
-        var subnetzmaskeSplit = subnetzmaske.Split(".");
+        var subnetArray = subnetzmaske.Split('.');
+        var subnetMaskBits = 0;
+        for (var i = 0; i < subnetArray.Length; i++)
+            subnetMaskBits += Convert.ToString(Convert.ToInt32(subnetArray[i]), 2).Count(x => x == '1');
+
+        var maximumHosts = (int) Math.Pow(2, 32 - subnetMaskBits) - 2;
+
+        return maximumHosts;
     }
 
     public static string CaculateLastHost(string? ipAdress, string? subnetzmaske)
@@ -17,7 +23,7 @@ public class CalculateMethods
 
         var broadcastToString = lastHostArray.Select(i => i.ToString()).ToArray();
 
-        var x = string.Join(". ", broadcastToString);
+        var x = string.Join(".", broadcastToString);
 
         return x;
     }
@@ -39,22 +45,18 @@ public class CalculateMethods
     public static string CalculateBroadCast(string? ipAdress, string? subnetzmaske)
     {
         //Broadcast
-        string[] strCurrentIP = ipAdress.Split('.');
-        string[] strIPNetMask = subnetzmaske.Split('.');
+        var strCurrentIP = ipAdress.Split('.');
+        var strIPNetMask = subnetzmaske.Split('.');
 
         var broadcast = new int[4];
 
-        for (int i = 0; i < 4; i++)
-        {
-            broadcast[i] = int.Parse(strCurrentIP[i]) | (int.Parse(strIPNetMask[i]) ^ 255);
-        }
+        for (var i = 0; i < 4; i++) broadcast[i] = int.Parse(strCurrentIP[i]) | (int.Parse(strIPNetMask[i]) ^ 255);
 
         var broadcastToString = broadcast.Select(i => i.ToString()).ToArray();
 
-        var x = string.Join(". ", broadcastToString);
+        var x = string.Join(".", broadcastToString);
 
         return x;
-
     }
 
     public static string[] CalculateNetzId(string? ipAdress, string? subnetzmaske)
@@ -70,5 +72,4 @@ public class CalculateMethods
 
         return netzIdToString;
     }
-
 }
