@@ -37,20 +37,22 @@ public class CalculateMethods
         var firstHostArray = netzIdArray.Select(i => i.ToString()).ToArray();
 
 
-        var firstHostIp = string.Join(". ", firstHostArray);
+        var firstHostIp = string.Join(".", firstHostArray);
 
         return firstHostIp;
     }
 
     public static string CalculateBroadCast(string? ipAdress, string? subnetzmaske)
     {
-        //Broadcast
         var strCurrentIP = ipAdress.Split('.');
         var strIPNetMask = subnetzmaske.Split('.');
 
         var broadcast = new int[4];
 
-        for (var i = 0; i < 4; i++) broadcast[i] = int.Parse(strCurrentIP[i]) | (int.Parse(strIPNetMask[i]) ^ 255);
+        for (var i = 0; i < 4; i++)
+        {
+            broadcast[i] = int.Parse(strCurrentIP[i]) | (int.Parse(strIPNetMask[i]) ^ 255);
+        }
 
         var broadcastToString = broadcast.Select(i => i.ToString()).ToArray();
 

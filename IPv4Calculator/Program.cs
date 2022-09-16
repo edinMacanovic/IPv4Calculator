@@ -1,6 +1,4 @@
-﻿using System.Threading.Channels;
-
-namespace IPv4Calculator;
+﻿namespace IPv4Calculator;
 // Note: actual namespace depends on the project name.
 
 public class Program : CalculateMethods
@@ -16,10 +14,14 @@ public class Program : CalculateMethods
         Console.WriteLine();
         Console.WriteLine("Das sind Ihre Ergebnisse: ");
         Console.WriteLine();
+        
+        Console.Write("Adresse: ");
+        Console.WriteLine(ipAdress);
+        Console.WriteLine();
 
         Console.Write("Netz-ID: ");
         var calculatednetzId = CalculateNetzId(ipAdress, subnetzmaske);
-        Console.WriteLine(string.Join(". ", calculatednetzId));
+        Console.WriteLine(string.Join(".", calculatednetzId));
 
         Console.WriteLine();
 
@@ -44,9 +46,5 @@ public class Program : CalculateMethods
         Console.Write("Hosts/Netz: ");
         var calculatedMaximumHost = CalculateMaximumHost(subnetzmaske);
         Console.WriteLine(calculatedMaximumHost);
-
-
-
-
     }
 }
